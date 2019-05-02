@@ -29,4 +29,3 @@ Acceptance Criteria
 3. REST API endpoint for reading all clients. [Done]
 4. REST API endpoint for updating client object. [Done]
 5. REST API endpoint for deleting a client object. [Done]
-
