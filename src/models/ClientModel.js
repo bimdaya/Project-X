@@ -21,6 +21,12 @@ class ClientModel {
 	static async deleteById(clientId) {
 		return db.none(queries.clients.deleteOne, { clientId });
 	}
+
+	// Update client by id
+	static async updateById(clientData) {
+		return db.none(queries.clients.updateOne, clientData);
+	}
+
 }
 
 module.exports = ClientModel;
