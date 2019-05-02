@@ -1,5 +1,5 @@
 const { asyncRouteHandler } = require('./middleware/routeHandlers');
-const ClientsController = require('./controllers/clientsController');
+const ClientsController = require('./controllers/ClientsController');
 
 const apiRoutes = (app) => {
 	app.route('/api/v1/clients').get(asyncRouteHandler(ClientsController.get));
