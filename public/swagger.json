@@ -69,6 +69,22 @@
             "description": "Returns ok and client is deleted if exists"
           }
         }
+      },
+      "PUT": {
+        "summary": "UpdateClientModel",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Client UUID v4",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns ok and client is updated if exists"
+          }
+        }
       }
     }
   },
@@ -91,6 +107,20 @@
 				}
       },
       "required": ["firstname", "surname", "phoneNumber"]
+    },
+    "UpdateClientModel": {
+      "properties": {
+        "firstname": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "surname": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      }
     }
   }
 }

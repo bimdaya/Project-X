@@ -35,7 +35,7 @@ class ClientsController {
 		const clientData = req.body;
 		const { clientId } = req.params;
 
-		await validator.validate('ClientModel', clientData);
+		await validator.validate('UpdateClientModel', clientData);
 		clientData.clientId = clientId;
 
 		await ClientModel.updateById(clientData);
