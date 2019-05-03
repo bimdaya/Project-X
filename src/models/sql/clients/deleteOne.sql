@@ -1,1 +1,2 @@
-DELETE FROM public.clients WHERE id = ${ clientId };
+DELETE FROM public.clients
+WHERE id = ${ clientId };

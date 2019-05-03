@@ -9,7 +9,11 @@ class ClientModel {
 
 	// Returns Client by ID
 	static async getOne(clientId) {
-		return db.one(queries.clients.getOne, { clientId });
+		return db.one(queries.clients.getOne, { clientId })
+			.then(client => { return client })
+			.catch(error =>
+			 console.error("Data can not be retrieved for client Id: " +
+			 							 clientId + "\n" + error.message));
 	}
 
 	// Create client
@@ -19,12 +23,18 @@ class ClientModel {
 
 	// Delete Client by id
 	static async deleteById(clientId) {
-		return db.none(queries.clients.deleteOne, { clientId });
+		return db.none(queries.clients.deleteOne, { clientId })
+				.then(console.log("Client Id: " + clientId +
+													" was deleted successfully."))
+				.catch(error =>
+					console.error("Error occured while deleting " +
+												clientId + " from the database.\n" + error));
 	}
 
 	// Update client by id
 	static async updateById(clientData) {
-		return db.none(queries.clients.updateOne, clientData);
+		return db.none(queries.clients.updateOne, clientData)
+			.then(result);
 	}
 
 }
