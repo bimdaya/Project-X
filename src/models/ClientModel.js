@@ -18,7 +18,17 @@ class ClientModel {
 
 	// Create client
 	static async createOne(clientData) {
-		return db.one(queries.clients.createOne, clientData);
+		return db.one(queries.clients.createOne, clientData)
+			.then(clientData => { const clientId = clientData.client;
+														console.log("Client Id: " + clientId +
+																			  " was created successfully.");
+														return clientId; })
+			.catch(error =>
+				console.error("Error occured while creating client with" +
+											" first name: " + clientData.firstname +
+											" surname: " + clientData.surname +
+											" phone number: " + clientData.phonenumber +
+											" to the database.\n" + error.message));
 	}
 
 	// Delete Client by id

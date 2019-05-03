@@ -21,9 +21,16 @@ class ClientsController {
 
 	// POST - Create a client
 	static async createOne(req) {
-		await validator.validate('ClientModel', req.body);
+		let clientData = req.body;
+		await validator.validate('ClientModel', clientData);
+		let createClientResult = await ClientModel.createOne(clientData);
 
-		return ClientModel.createOne(req.body);
+		if (createClientResult == undefined)
+			throw new RequestError("Error occured while creating  client with" +
+										" first name: " + clientData.firstname +
+										" surname: " + clientData.surname +
+										" phone number: " + clientData.phonenumber);
+		return { id : createClientResult };
 	}
 
 	// DELETE - Delete a client
@@ -41,9 +48,9 @@ class ClientsController {
 		let deleteByIdResult = await ClientModel.deleteById(clientId);
 
 		if (deleteByIdResult)
-			throw new Error("Error occured while deleting the client Id: " +
+			throw new RequestError("Error occured while deleting the client Id: " +
 											clientId);
-		return { message: "Client Id: " + clientId + " deleted successfully." };
+		return { message: 'Client Id: ' + clientId + ' deleted successfully.' };
 	}
 
 	// PUT - Update a client
@@ -57,9 +64,9 @@ class ClientsController {
 		let updateByIdResult = await ClientModel.updateById(clientData);
 
 		if (updateByIdResult)
-			throw new Error("Error occured while updating the client Id: " +
+			throw new RequestError("Error occured while updating the client Id: " +
 											clientId);
-		return { message: "Client Id: " + clientId + " updated successfully." };
+		return { message: 'Client Id: ' + clientId + ' updated successfully.' };
 	}
 
 }

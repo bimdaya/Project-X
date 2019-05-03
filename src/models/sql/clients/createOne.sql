@@ -1,9 +1,9 @@
-insert into public.clients(
+INSERT INTO public.clients(
 	phoneNumber,
-	firstname,
-	surname
-) values (
+	firstName,
+	surName
+) VALUES (
 	${phoneNumber},
-	${firstname},
+	${firstName},
 	${surname}
-) RETURNING id as client
+) RETURNING id AS client
