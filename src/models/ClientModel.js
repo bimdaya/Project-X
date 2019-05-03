@@ -10,46 +10,59 @@ class ClientModel {
 	// Returns Client by ID
 	static async getClientById(clientId) {
 		return db.one(queries.clients.getOne, { clientId })
-			.then(client => { return client })
-			.catch(error =>
-				console.error("Data can not be retrieved for client Id: " +
-			 							 clientId + "\n" + error.message));
+			.then((client) => {
+				if (client === undefined) {
+					return { errMessage: `No data found under client Id ${clientId}` };
+				}
+				return client;
+			})
+			.catch((errObject) => {
+				const error = {
+					errCode: errObject.code,
+					errMessage: errObject.message,
+				};
+				return error;
+			});
 	}
 
 	// Create client
 	static async createClient(clientData) {
 		return db.one(queries.clients.createOne, clientData)
-			.then(clientData => { const clientId = clientData.client;
-														console.log("Client Id: " + clientId +
-																			  " was created successfully.");
-														return clientId; })
-			.catch(error =>
-				console.error("Error occured while creating client with" +
-											" first name: " + clientData.firstname +
-											" surname: " + clientData.surname +
-											" phone number: " + clientData.phonenumber +
-											" to the database.\n" + error.message));
+			.then((client) => {
+				const clientId = { id: client.client };
+				return clientId;
+			})
+			.catch((errObject) => {
+				const error = {
+					errCode: errObject.code,
+					errMessage: errObject.message,
+				};
+				return error;
+			});
 	}
 
 	// Delete Client by id
 	static async deleteById(clientId) {
 		return db.none(queries.clients.deleteOne, { clientId })
-				.then(console.log("Client Id: " + clientId +
-													" was deleted successfully."))
-				.catch(error =>
-					console.error("Error occured while deleting " +
-												clientId + " from the database.\n" + error.message));
+			.catch((errObject) => {
+				const error = {
+					errCode: errObject.code,
+					errMessage: errObject.message,
+				};
+				return error;
+			});
 	}
 
 	// Update client by id
 	static async updateById(clientData) {
-		let clientId = clientData.id;
 		return db.none(queries.clients.updateOne, clientData)
-			.then(console.log("Client Id: " + clientId +
-												" was updated successfully."))
-			.catch(error =>
-				console.error("Error occured while updating " +
-											clientId + " in the database.\n" + error.message));
+			.catch((errObject) => {
+				const error = {
+					errCode: errObject.code,
+					errMessage: errObject.message,
+				};
+				return error;
+			});
 	}
 
 }
