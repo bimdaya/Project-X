@@ -1,19 +1,19 @@
-begin;
-create extension if not exists pgcrypto;
+BEGIN;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-create table if not exists public.clients (
-    id UUID primary key default gen_random_uuid(),
-    phoneNumber varchar(64) UNIQUE not null,
-		firstname varchar(64) not null,
-		surname varchar(64) not null
+CREATE TABLE IF NOT EXISTS public.clients (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    phoneNumber VARCHAR(64) UNIQUE NOT NULL,
+		firstName VARCHAR(64) NOT NULL,
+		surname VARCHAR(64) NOT NULL
 );
 
 /* For testing purpose. :) */
 TRUNCATE public.clients CASCADE;
 
 
-insert into public.clients (phoneNumber, firstname, surname) values
-	('+44076546546545', 'FName', 'LName');
+INSERT INTO public.clients (phoneNumber, firstName, surname)
+VALUES ('+44076546546545', 'FName', 'LName');
 
 /* testing end */
-commit;
+COMMIT;

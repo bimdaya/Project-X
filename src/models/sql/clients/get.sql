@@ -1,1 +1,2 @@
-select * from public.clients
+SELECT *
+FROM public.clients
