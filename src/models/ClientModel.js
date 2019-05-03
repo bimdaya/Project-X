@@ -33,8 +33,13 @@ class ClientModel {
 
 	// Update client by id
 	static async updateById(clientData) {
+		let clientId = clientData.id;
 		return db.none(queries.clients.updateOne, clientData)
-			.then(result);
+			.then(console.log("Client Id: " + clientId +
+												" was updated successfully."))
+			.catch(error =>
+				console.error("Error occured while updating " +
+											clientId + " in the database.\n" + error.message));
 	}
 
 }

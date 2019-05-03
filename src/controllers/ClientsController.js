@@ -43,21 +43,23 @@ class ClientsController {
 		if (deleteByIdResult)
 			throw new Error("Error occured while deleting the client Id: " +
 											clientId);
-		return { message: "Client Id: " + clientId + " deleted successfully" };
+		return { message: "Client Id: " + clientId + " deleted successfully." };
 	}
 
 	// PUT - Update a client
 	static async updateOne(req) {
-		const clientData = req.body;
-		const { clientId } = req.params;
+		await validator.validate('UpdateClientModel', req.body);
+		let clientData = await ClientsController.getOne(req);
 
-		await validator.validate('UpdateClientModel', clientData);
-		// Add clientId to clientData object
-		clientData.clientId = clientId;
+		if (clientData == undefined) return;
 
-		await ClientModel.updateById(clientData);
+		let clientId = clientData.id;
+		let updateByIdResult = await ClientModel.updateById(clientData);
 
-		return { message: 'success' };
+		if (updateByIdResult)
+			throw new Error("Error occured while updating the client Id: " +
+											clientId);
+		return { message: "Client Id: " + clientId + " updated successfully." };
 	}
 
 }
