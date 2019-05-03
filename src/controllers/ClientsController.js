@@ -28,10 +28,13 @@ class ClientsController {
 
 	// DELETE - Delete a client
 	static async deleteOne(req) {
-		const { clientId } = req.params;
-		let checkClientExists = await ClientModel.getOne(clientId);
+		let clientData = await ClientsController.getOne(req);
 
-		if (checkClientExists == undefined)
+		if (clientData == undefined) return;
+
+		const clientId = clientData.id;
+
+		if (clientId == undefined)
 			throw new NotFoundError("Error occured while retrieving details of" +
 															" client Id: " + clientId);
 
@@ -40,7 +43,7 @@ class ClientsController {
 		if (deleteByIdResult)
 			throw new Error("Error occured while deleting the client Id: " +
 											clientId);
-		return { message: "Client Id: " + clientId + "deleted successfully" };
+		return { message: "Client Id: " + clientId + " deleted successfully" };
 	}
 
 	// PUT - Update a client

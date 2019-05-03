@@ -28,7 +28,7 @@ class ClientModel {
 													" was deleted successfully."))
 				.catch(error =>
 					console.error("Error occured while deleting " +
-												clientId + " from the database.\n" + error));
+												clientId + " from the database.\n" + error.message));
 	}
 
 	// Update client by id
