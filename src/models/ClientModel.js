@@ -3,21 +3,21 @@ const queries = require('./sql/queries');
 
 class ClientModel {
 	// Returns a list of clients
-	static async getList(search = {}) {
+	static async getClientsList(search = {}) {
 		return db.any(queries.clients.get, search);
 	}
 
 	// Returns Client by ID
-	static async getOne(clientId) {
+	static async getClientById(clientId) {
 		return db.one(queries.clients.getOne, { clientId })
 			.then(client => { return client })
 			.catch(error =>
-			 console.error("Data can not be retrieved for client Id: " +
+				console.error("Data can not be retrieved for client Id: " +
 			 							 clientId + "\n" + error.message));
 	}
 
 	// Create client
-	static async createOne(clientData) {
+	static async createClient(clientData) {
 		return db.one(queries.clients.createOne, clientData)
 			.then(clientData => { const clientId = clientData.client;
 														console.log("Client Id: " + clientId +

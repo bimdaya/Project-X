@@ -4,14 +4,14 @@ const { NotFoundError } = require('../errors');
 
 class ClientsController {
 	// GET - Returns a list of clients
-	static async get() {
-		return ClientModel.getList();
+	static async getAllClients() {
+		return ClientModel.getClientsList();
 	}
 
 	// GET - Returns one client by ID
-	static async getOne(req) {
+	static async getClientById(req) {
 		const { clientId } = req.params;
-		let getClientByIdResult = await ClientModel.getOne(clientId);
+		let getClientByIdResult = await ClientModel.getClientById(clientId);
 
 		if (getClientByIdResult == undefined)
 			throw new NotFoundError("Error occured while retrieving details of" +
@@ -20,10 +20,10 @@ class ClientsController {
 	}
 
 	// POST - Create a client
-	static async createOne(req) {
+	static async createClient(req) {
 		let clientData = req.body;
 		await validator.validate('ClientModel', clientData);
-		let createClientResult = await ClientModel.createOne(clientData);
+		let createClientResult = await ClientModel.createClient(clientData);
 
 		if (createClientResult == undefined)
 			throw new RequestError("Error occured while creating  client with" +
@@ -34,8 +34,8 @@ class ClientsController {
 	}
 
 	// DELETE - Delete a client
-	static async deleteOne(req) {
-		let clientData = await ClientsController.getOne(req);
+	static async deleteClientById(req) {
+		let clientData = await ClientsController.getClientById(req);
 
 		if (clientData == undefined) return;
 
@@ -54,9 +54,9 @@ class ClientsController {
 	}
 
 	// PUT - Update a client
-	static async updateOne(req) {
+	static async updateClient(req) {
 		await validator.validate('UpdateClientModel', req.body);
-		let clientData = await ClientsController.getOne(req);
+		let clientData = await ClientsController.getClientById(req);
 
 		if (clientData == undefined) return;
 
