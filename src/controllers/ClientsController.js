@@ -11,8 +11,12 @@ class ClientsController {
 	// GET - Returns one client by ID
 	static async getOne(req) {
 		const { clientId } = req.params;
+		let getClientByIdResult = await ClientModel.getOne(clientId);
 
-		return ClientModel.getOne(clientId);
+		if (getClientByIdResult == undefined)
+			throw new NotFoundError("Error occured while retrieving details of" +
+															" client Id: " + clientId);
+		return getClientByIdResult;
 	}
 
 	// POST - Create a client
@@ -36,7 +40,6 @@ class ClientsController {
 		if (deleteByIdResult)
 			throw new Error("Error occured while deleting the client Id: " +
 											clientId);
-
 		return { message: "Client Id: " + clientId + "deleted successfully" };
 	}
 

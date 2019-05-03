@@ -1,1 +1,3 @@
-select * from public.clients where id = ${ clientId }
+SELECT *
+FROM public.clients
+WHERE id = ${ clientId }
