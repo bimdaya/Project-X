@@ -91,7 +91,7 @@
   "definitions": {
     "ClientModel": {
       "properties": {
-        "firstname": {
+        "firstName": {
 					"type": "string",
 					"minLength": 1,
 					"maxLength": 64
@@ -106,11 +106,11 @@
 					"pattern": "^\\+4407([0-9]{9,14})"
 				}
       },
-      "required": ["firstname", "surname", "phoneNumber"]
+      "required": ["firstName", "surname", "phoneNumber"]
     },
     "UpdateClientModel": {
       "properties": {
-        "firstname": {
+        "firstName": {
           "type": "string",
           "minLength": 1,
           "maxLength": 64
@@ -120,7 +120,8 @@
           "minLength": 1,
           "maxLength": 64
         }
-      }
+      },
+      "required": ["firstName", "surname"]
     }
   }
 }
