@@ -22,8 +22,8 @@ class ClientsController {
 
 		if (getClientByIdResult.id === undefined) {
 			throw new NotFoundError(`Error occured while retrieving details of
-															client Id: ${clientId} \n
-															${getClientByIdResult.errMessage}`);
+				client Id: ${clientId} \n
+				${getClientByIdResult.errMessage}`);
 		}
 		return getClientByIdResult;
 	}
@@ -41,10 +41,10 @@ class ClientsController {
 
 		if (createClientResult.id === undefined) {
 			throw new Error(`Error occured while creating client with
-											first name: ${clientData.firstName}
-											surname: ${clientData.surname}
-											phone number: ${clientData.phoneNumber}\n
-											${createClientResult.errMessage}`);
+				first name: ${clientData.firstName}
+				surname: ${clientData.surname}
+				phone number: ${clientData.phoneNumber}\n
+				${createClientResult.errMessage}`);
 		}
 		return createClientResult;
 	}
@@ -67,7 +67,7 @@ class ClientsController {
 
 		if (deleteByIdResult) {
 			throw new Error(`Error occured while deleting the client Id:
-											${clientId}\n ${deleteByIdResult.errMessage}`);
+				${clientId}\n ${deleteByIdResult.errMessage}`);
 		}
 		return { message: `Client Id: ${clientId} deleted successfully.` };
 	}
@@ -90,7 +90,7 @@ class ClientsController {
 
 		if (updateByIdResult) {
 			throw new Error(`Error occured while updating the
-											client Id: ${clientId}\n ${updateByIdResult.errMessage}`);
+				client Id: ${clientId}\n ${updateByIdResult.errMessage}`);
 		}
 		return { message: `Client Id: ${clientId} updated successfully.` };
 	}
