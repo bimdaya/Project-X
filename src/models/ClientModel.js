@@ -4,6 +4,7 @@ const queries = require('./sql/queries');
 class ClientModel {
 	/**
 	* Get a list of clients from the databse
+	* @param {array} search empty array
 	* @return {array} Array of client objects
 	*/
 	static async getClientsList(search = {}) {
