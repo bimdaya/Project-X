@@ -3,46 +3,51 @@ const td = require('testdouble');
 
 const { expect } = chai;
 
+const clientId = 'test-client-di';
+
+// TODO: Test cases should be implemented for failing scenarios
 describe('clientsController', () => {
 	afterEach = () =>  {
 		td.reset()
 	}
 
-	it('#get should return clients list', async () => {
+	it('getAllClients should return a list of clients', async () => {
 		const clientsList = [
-			{ id: 'someid' }
+			{ id: clientId }
 		]
 
 		const clientModel = td.replace('../../../src/models/ClientModel');
-		td.when(clientModel.getList()).thenResolve(clientsList);
+		td.when(clientModel.getClientsList()).thenResolve(clientsList);
 
-		const ClientsController = require('../../../src/controllers/ClientsController');
+		const ClientsController =
+			require('../../../src/controllers/ClientsController');
+		const getAllClientsResult = await ClientsController.getAllClients();
 
-		const getResult = await ClientsController.get();
-
-		expect(getResult)
+		expect(getAllClientsResult)
 			.to.be.an('array')
 			.that.equals(clientsList)
 	});
 
-	it ('#getOne should return one client', async () => {
+	it ('getClientById should return one client', async () => {
 		const clientModel = td.replace('../../../src/models/ClientModel');
-		td.when(clientModel.getOne('some-client-id')).thenResolve({ id: 'some-client-id' });
+		td.when(clientModel.getClientById(clientId)).thenResolve({ id: clientId });
 
-		const ClientsController = require('../../../src/controllers/ClientsController');
-		const getOneResult = await ClientsController.getOne({ params: { clientId: 'some-client-id' }});
+		const ClientsController =
+			require('../../../src/controllers/ClientsController');
+		const getClientByIdResult =
+			await ClientsController.getClientById({ params: { clientId: clientId }});
 
-		expect(getOneResult)
+		expect(getClientByIdResult)
 			.to.be.an('object')
 			.and.has.property('id')
-			.that.equals('some-client-id')
+			.that.equals(clientId)
 	});
 
-	it ('#createOne should create one client', async () => {
+	it ('createClient should create one client', async () => {
 		const req = {
 			body: {
 				phoneNumber: '+4407777712333',
-				firstname: 'John',
+				firstName: 'John',
 				surname: 'Doe',
 			}
 		}
@@ -52,35 +57,41 @@ describe('clientsController', () => {
 			.thenReturn({ valid: true });
 
 		const clientModel = td.replace('../../../src/models/ClientModel');
-		td.when(clientModel.createOne(req.body)).thenResolve({ client: 'client-created' });
+		td.when(clientModel.createClient(req.body))
+			.thenResolve({ id: clientId });
 
-		const ClientsController = require('../../../src/controllers/ClientsController');
-		const createOneResult = await ClientsController.createOne(req);
-
+		const ClientsController =
+			require('../../../src/controllers/ClientsController');
+		const createOneResult = await ClientsController.createClient(req);
 
 		expect(createOneResult)
 			.to.be.an('object')
-			.and.has.property('client')
+			.and.has.property('id')
 			.that.is.an('string')
 	});
 
-	it ('#deleteOne should return success', async () => {
+	it ('deleteClientById should delete client', async () => {
 		const clientModel = td.replace('../../../src/models/ClientModel');
-		td.when(clientModel.deleteById('some-client-id')).thenResolve();
+		td.when(clientModel.deleteById(clientId)).thenResolve();
+		td.when(clientModel.getClientById(clientId)).thenResolve({ id: clientId });
 
-		const ClientsController = require('../../../src/controllers/ClientsController');
-		const deleteOneResult = await ClientsController.deleteOne({ params: { clientId: 'some-client-id' }});
+		const ClientsController =
+			require('../../../src/controllers/ClientsController');
+		const deleteOneResult = await ClientsController
+			.deleteClientById({ params: { clientId: clientId }});
 
 		expect(deleteOneResult)
 			.to.be.an('object')
 			.and.has.property('message')
 			.that.is.an('string')
-			.that.equals('success')
+			.that.equals(`Client Id: ${clientId} deleted successfully.`)
 	});
 
-	it ('#updateOne should return success', async () => {
+	it ('updateOne should update client', async () => {
 		const clientModel = td.replace('../../../src/models/ClientModel');
-		td.when(clientModel.updateById('some-client-id')).thenResolve();
+		td.when(clientModel.updateById(clientId)).thenResolve();
+		td.when(clientModel.getClientById(clientId))
+			.thenResolve({ id: clientId });
 
 		const req = {
 			body: {
@@ -88,7 +99,7 @@ describe('clientsController', () => {
 				surname: 'Doe',
 			},
 			params: {
-				clientId: 'some-client-id'
+				clientId: clientId
 			}
 		}
 
@@ -96,15 +107,15 @@ describe('clientsController', () => {
 		td.when(validator.validate(td.matchers.isA(String), req.body))
 			.thenReturn({ valid: true });
 
-		const ClientsController = require('../../../src/controllers/ClientsController');
-		const updateOneResult = await ClientsController.updateOne(req);
-
+		const ClientsController =
+			require('../../../src/controllers/ClientsController');
+		const updateOneResult = await ClientsController.updateClient(req);
 
 		expect(updateOneResult)
 			.to.be.an('object')
 			.and.has.property('message')
 			.that.is.an('string')
-			.that.equals('success')
+			.that.equals(`Client Id: ${clientId} updated successfully.`)
 	});
 
 });
