@@ -1,3 +1,20 @@
 {
-	
+	"service": {
+		"port": 3000
+	},
+
+	"db": {
+		"connString": "postgres://${user}:${password}@localhost:5432/postgres"
+	},
+
+	"logger": {
+		"file": {
+			"enabled": true,
+			"level": "error"
+		},
+		"console": {
+			"enabled": false,
+			"level": "info"
+		}
+	}
 }
