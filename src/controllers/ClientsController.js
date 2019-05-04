@@ -18,6 +18,7 @@ class ClientsController {
 	* GET - Get client details to a given client id
 	* @param {object} req api request
 	* @return {object} Client details
+	*@throw {NotFoundError}
 	*/
 	static async getClientById(req) {
 		const { clientId } = req.params;
@@ -35,7 +36,7 @@ class ClientsController {
 	* POST - Create a client by assigning given details
 	* @param {object} req api request
 	* @return {object} Success message
-	* @throw Error
+	* @throw {Error}
 	*/
 	static async createClient(req) {
 		const clientData = req.body;
@@ -56,7 +57,7 @@ class ClientsController {
 	* DELETE - Delete a client of a given client id
 	* @param {object} req api request
 	* @return {object} Success message
-	* @throw Error
+	* @throw {Error}
 	*/
 	static async deleteClientById(req) {
 		const clientData = await ClientsController.getClientById(req);
@@ -79,7 +80,7 @@ class ClientsController {
 	* PUT - Update a client for given details
 	* @param {object} req api request
 	* @return {object} Success message
-	* @throw Error
+	* @throw {Error}
 	*/
 	static async updateClient(req) {
 		await validator.validate('UpdateClientModel', req.body);
