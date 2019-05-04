@@ -2,12 +2,19 @@ const db = require('../helpers/postgres');
 const queries = require('./sql/queries');
 
 class ClientModel {
-	// Returns a list of clients
+	/**
+	* Get a list of clients from the databse
+	* @return {array} Array of client objects
+	*/
 	static async getClientsList(search = {}) {
 		return db.any(queries.clients.get, search);
 	}
 
-	// Returns Client by ID
+	/**
+	* Get client details from the database to a given client id
+	* @param {string} clientId client id
+	* @return {object} Client details
+	*/
 	static async getClientById(clientId) {
 		return db.one(queries.clients.getOne, { clientId })
 			.then((client) => {
@@ -25,7 +32,11 @@ class ClientModel {
 			});
 	}
 
-	// Create client
+	/**
+	* Create a client in the database by assigning the given details
+	* @param {object} clientData client details
+	* @return {object} Success/error message
+	*/
 	static async createClient(clientData) {
 		return db.one(queries.clients.createOne, clientData)
 			.then((client) => {
@@ -41,7 +52,11 @@ class ClientModel {
 			});
 	}
 
-	// Delete Client by id
+	/**
+	* Delete a client from the database of a given client id
+	* @param {object} clientId clientId
+	* @return {object} Success/error message
+	*/
 	static async deleteById(clientId) {
 		return db.none(queries.clients.deleteOne, { clientId })
 			.catch((errObject) => {
@@ -53,7 +68,11 @@ class ClientModel {
 			});
 	}
 
-	// Update client by id
+	/**
+	* Update a client in the database for the given details
+	* @param {object} clientData client details
+	* @return {object} Success/error message
+	*/
 	static async updateById(clientData) {
 		return db.none(queries.clients.updateOne, clientData)
 			.catch((errObject) => {

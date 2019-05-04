@@ -3,12 +3,19 @@ const validator = require('../helpers/validator');
 const { NotFoundError } = require('../errors');
 
 class ClientsController {
-	// GET - Returns a list of clients
+	/**
+	* GET - Get a list of clients
+	* @return {array} Array of client objects
+	*/
 	static async getAllClients() {
 		return ClientModel.getClientsList();
 	}
 
-	// GET - Returns one client by ID
+	/**
+	* GET - Get client details to a given client id
+	* @param {object} req api request
+	* @return {object} Client details
+	*/
 	static async getClientById(req) {
 		const { clientId } = req.params;
 		const getClientByIdResult = await ClientModel.getClientById(clientId);
@@ -21,13 +28,18 @@ class ClientsController {
 		return getClientByIdResult;
 	}
 
-	// POST - Create a client
+	/**
+	* POST - Create a client by assigning given details
+	* @param {object} req api request
+	* @return {object} Success message
+	* @throw Error
+	*/
 	static async createClient(req) {
 		const clientData = req.body;
 		await validator.validate('ClientModel', clientData);
 		const createClientResult = await ClientModel.createClient(clientData);
 
-		if (createClientResult.idfirstname === undefined) {
+		if (createClientResult.id === undefined) {
 			throw new Error(`Error occured while creating client with
 											first name: ${clientData.firstName}
 											surname: ${clientData.surname}
@@ -37,7 +49,12 @@ class ClientsController {
 		return createClientResult;
 	}
 
-	// DELETE - Delete a client
+	/**
+	* DELETE - Delete a client of a given client id
+	* @param {object} req api request
+	* @return {object} Success message
+	* @throw Error
+	*/
 	static async deleteClientById(req) {
 		const clientData = await ClientsController.getClientById(req);
 		const clientId = clientData.id;
@@ -55,7 +72,12 @@ class ClientsController {
 		return { message: `Client Id: ${clientId} deleted successfully.` };
 	}
 
-	// PUT - Update a client
+	/**
+	* PUT - Update a client for given details
+	* @param {object} req api request
+	* @return {object} Success message
+	* @throw Error
+	*/
 	static async updateClient(req) {
 		await validator.validate('UpdateClientModel', req.body);
 		const clientData = await ClientsController.getClientById(req);
