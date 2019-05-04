@@ -1,7 +1,6 @@
 const chai = require('chai');
 
 const chaiHttp = require('chai-http');
-const rp = require('request-promise-native');
 const config = require('../helpers/config');
 
 const { assert, expect } = chai;
@@ -99,4 +98,5 @@ describe('Should handle client record requests ', function() {
       done();
     });
   });
+
 });
