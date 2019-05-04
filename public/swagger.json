@@ -22,67 +22,61 @@
         "responses": {
           "200": {
             "description": "List of clients or empty array"
-					},
-					"500": {
-						"description": "Something went wrong!"
-					}
+          },
+          "500": {
+            "description": "Something went wrong!"
+          }
         }
-			},
-			"POST": {
+      },
+      "POST": {
         "summary": "ClientModel",
         "responses": {
           "200": {
-            "description": "List of clients or empty array"
+            "description": "Returns client ID"
           }
         }
       }
-		},
-		"/api/v1/clients/{id}": {
+    },
+    "/api/v1/clients/{id}": {
       "GET": {
-				"summary": "ClientModel",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"description": "Client UUID v4",
-						"required": true
-					}
-				],
+        "summary": "ClientModel",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "Client UUID v4",
+          "required": true
+        }],
         "responses": {
           "200": {
             "description": "Returns client data"
           }
         }
-			},
-			"DELETE": {
-				"summary": "ClientModel",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"description": "Client UUID v4",
-						"required": true
-					}
-				],
+      },
+      "DELETE": {
+        "summary": "ClientModel",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "Client UUID v4",
+          "required": true
+        }],
         "responses": {
           "200": {
-            "description": "Returns ok and client is deleted if exists"
+            "description": "Returns success message"
           }
         }
       },
       "PUT": {
         "summary": "UpdateClientModel",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Client UUID v4",
-            "required": true
-          }
-        ],
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "Client UUID v4",
+          "required": true
+        }],
         "responses": {
           "200": {
-            "description": "Returns ok and client is updated if exists"
+            "description": "Returns success message"
           }
         }
       }
@@ -92,19 +86,19 @@
     "ClientModel": {
       "properties": {
         "firstName": {
-					"type": "string",
-					"minLength": 1,
-					"maxLength": 64
-				},
-				"surname": {
-					"type": "string",
-					"minLength": 1,
-					"maxLength": 64
-				},
-				"phoneNumber": {
-					"type": "string",
-					"pattern": "^\\+4407([0-9]{9,14})"
-				}
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "surname": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "phoneNumber": {
+          "type": "string",
+          "pattern": "^\\+4407([0-9]{9,14})"
+        }
       },
       "required": ["firstName", "surname", "phoneNumber"]
     },
