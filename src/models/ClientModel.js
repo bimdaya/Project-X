@@ -1,6 +1,9 @@
 const db = require('../helpers/postgres');
 const queries = require('./sql/queries');
 
+/**
+* Handle CRUD operations in the database for client management
+*/
 class ClientModel {
 	/**
 	* Get a list of clients from the databse

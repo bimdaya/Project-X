@@ -2,6 +2,9 @@ const ClientModel = require('../models/ClientModel');
 const validator = require('../helpers/validator');
 const { NotFoundError } = require('../errors');
 
+/**
+* Handle API requests for client management
+*/
 class ClientsController {
 	/**
 	* GET - Get a list of clients
