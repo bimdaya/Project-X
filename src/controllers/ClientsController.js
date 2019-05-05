@@ -57,7 +57,7 @@ class ClientsController {
 	* DELETE - Delete a client of a given client id
 	* @param {object} req api request
 	* @return {object} Success message
-	* @throw {Error}
+	* @throw {NotFoundError, Error}
 	*/
 	static async deleteClientById(req) {
 		const clientData = await ClientsController.getClientById(req);
@@ -80,7 +80,7 @@ class ClientsController {
 	* PUT - Update a client for given details
 	* @param {object} req api request
 	* @return {object} Success message
-	* @throw {Error}
+	* @throw {NotFoundError, Error}
 	*/
 	static async updateClient(req) {
 		await validator.validate('UpdateClientModel', req.body);

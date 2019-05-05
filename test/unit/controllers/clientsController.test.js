@@ -72,7 +72,6 @@ describe('clientsController', () => {
 
 	it ('deleteClientById should delete client', async () => {
 		const clientModel = td.replace('../../../src/models/ClientModel');
-		td.when(clientModel.deleteById(clientId)).thenResolve();
 		td.when(clientModel.getClientById(clientId)).thenResolve({ id: clientId });
 
 		const ClientsController =
@@ -89,7 +88,6 @@ describe('clientsController', () => {
 
 	it ('updateOne should update client', async () => {
 		const clientModel = td.replace('../../../src/models/ClientModel');
-		td.when(clientModel.updateById(clientId)).thenResolve();
 		td.when(clientModel.getClientById(clientId))
 			.thenResolve({ id: clientId });
 
