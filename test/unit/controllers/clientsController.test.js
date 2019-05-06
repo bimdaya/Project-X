@@ -35,10 +35,10 @@ describe('clientsController', () => {
     const ClientsController =
       require('../../../src/controllers/ClientsController');
     const getClientByIdResult = await ClientsController.getClientById({
-			params: {
-          clientId: clientId
-        }
-      });
+		  params: {
+		    clientId: clientId
+		  }
+		});
 
     expect(getClientByIdResult)
       .to.be.an('object')
