@@ -21,6 +21,7 @@ Testing the service
 --------------------
 
 * Run `yarn test` to test the service.
+* To run integration test, run the service at port 80 and run `yarn test:integration`.
 
 Acceptance Criteria
 --------------------
