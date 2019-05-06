@@ -3,9 +3,8 @@ const td = require('testdouble');
 
 const { expect } = chai;
 
-const clientId = 'test-client-di';
+const clientId = 'test-client-id';
 
-// TODO: Test cases should be implemented for failing scenarios
 describe('clientsController', () => {
 	afterEach = () =>  {
 		td.reset()
@@ -86,7 +85,7 @@ describe('clientsController', () => {
 			.that.equals(`Client Id: ${clientId} deleted successfully.`)
 	});
 
-	it ('updateOne should update client', async () => {
+	it ('updateClient should update client', async () => {
 		const clientModel = td.replace('../../../src/models/ClientModel');
 		td.when(clientModel.getClientById(clientId))
 			.thenResolve({ id: clientId });
