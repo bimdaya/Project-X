@@ -2,6 +2,8 @@ const ClientModel = require('../models/ClientModel');
 const validator = require('../helpers/validator');
 const { NotFoundError } = require('../errors');
 
+const createClientModel = 'ClientModel';
+const updateClientModel = 'UpdateClientModel';
 /**
 * Handle API requests for client management
 */
@@ -18,7 +20,7 @@ class ClientsController {
 	* GET - Get client details to a given client id
 	* @param {object} req api request
 	* @return {object} Client details
-	*@throw {NotFoundError}
+	* @throw {NotFoundError}
 	*/
 	static async getClientById(req) {
 		const { clientId } = req.params;
@@ -40,7 +42,7 @@ class ClientsController {
 	*/
 	static async createClient(req) {
 		const clientData = req.body;
-		await validator.validate('ClientModel', clientData);
+		await validator.validate(createClientModel, clientData);
 		const createClientResult = await ClientModel.createClient(clientData);
 
 		if (createClientResult.id === undefined) {
@@ -83,7 +85,7 @@ class ClientsController {
 	* @throw {NotFoundError, Error}
 	*/
 	static async updateClient(req) {
-		await validator.validate('UpdateClientModel', req.body);
+		await validator.validate(updateClientModel, req.body);
 		const clientData = await ClientsController.getClientById(req);
 		const clientId = clientData.id;
 
