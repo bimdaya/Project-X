@@ -14,6 +14,9 @@ class ClientsController {
 	* @return {array} Array of client objects
 	*/
 	static async getAllClients() {
+		console.log('This is a test log');
+		console.warn('This is a test warn:log');
+		console.error('This is a test error:log');
 		return ClientModel.getClientsList();
 	}
 
