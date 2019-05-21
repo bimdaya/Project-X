@@ -4,6 +4,7 @@ const { NotFoundError } = require('../errors');
 
 const createClientModel = 'ClientModel';
 const updateClientModel = 'UpdateClientModel';
+
 /**
 * Handle API requests for client management
 */
@@ -64,10 +65,9 @@ class ClientsController {
 		const clientData = await ClientsController.getClientById(req);
 		const clientId = clientData.id;
 
-		if (clientId === undefined) {
-			throw new NotFoundError('Client Id not found.');
+		if (clientId === undefined || clientId === null) {
+			throw new NotFoundError('Client Id is null or not defined.');
 		}
-
 		const deleteByIdResult = await ClientModel.deleteById(clientId);
 
 		if (deleteByIdResult) {
@@ -88,8 +88,8 @@ class ClientsController {
 		const clientData = await ClientsController.getClientById(req);
 		const clientId = clientData.id;
 
-		if (clientId === undefined) {
-			throw new NotFoundError('Client Id not found.');
+		if (clientId === undefined || clientId === null) {
+			throw new NotFoundError('Client Id is null or not defined.');
 		}
 		const updateByIdResult = await ClientModel.updateById(clientData);
 
